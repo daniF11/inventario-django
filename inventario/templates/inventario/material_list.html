@@ -1,0 +1,18 @@
+<h1>Materiales</h1>
+
+<a href="{% url 'inventario:material_create' %}">Nuevo material</a>
+
+<ul>
+  {% for material in materiales %}
+    <li>
+      {{ material.nombre }} –
+      {{ material.stock }} {{ material.unidad }}
+      ({{ material.categoria }})
+      | <a href="{% url 'inventario:material_update' material.pk %}">Editar</a>
+      | <a href="{% url 'inventario:material_toggle' material.pk %}">
+          {% if material.activo %}Desactivar{% else %}Activar{% endif %}
+        </a>
+    </li>
+  {% endfor %}
+</ul>
+
