@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Material, Categoria
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView
+from .models import Movimiento
+from .forms import MovimientoForm
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -57,3 +62,22 @@ def material_toggle(request, pk):
     material.activo = not material.activo
     material.save()
     return redirect('inventario:material_list')
+
+
+
+
+class MovimientoCreateView(CreateView):
+    model = Movimiento
+    form_class = MovimientoForm
+    template_name = 'inventario/movimiento_form.html'
+    success_url = reverse_lazy('inventario:movimiento_list')
+    
+    
+class MovimientoListView(ListView):
+    model = Movimiento
+    template_name = 'inventario/movimiento_list.html'
+    context_object_name = 'movimientos'
+    ordering = ['-fecha']
+    paginate_by = 20
+
+

@@ -36,6 +36,8 @@ class Material(models.Model):
 #MODELO MOVIMIENTO
 
 class Movimiento(models.Model):
+    ENTRADA = 'ENTRADA'
+    SALIDA = 'SALIDA'
     TIPO_CHOICES = (
         ('ENTRADA', 'Entrada'),
         ('SALIDA', 'Salida'),
@@ -49,6 +51,7 @@ class Movimiento(models.Model):
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
     cantidad = models.PositiveIntegerField()
     motivo = models.CharField(max_length=200)
+    stock_resultante = models.PositiveIntegerField(default=0, editable=False)
     fecha = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -61,13 +64,16 @@ class Movimiento(models.Model):
             )
 
     def save(self, *args, **kwargs):
-        with transaction.atomic():
-            self.clean()
-
-            if self.tipo == 'ENTRADA':
+     with transaction.atomic():
+        if self._state.adding:
+            if self.tipo == self.ENTRADA:
                 self.material.stock += self.cantidad
-            elif self.tipo == 'SALIDA':
+            elif self.tipo == self.SALIDA:
                 self.material.stock -= self.cantidad
+            else:
+                raise ValidationError("Tipo de movimiento inválido")
 
             self.material.save()
-            super().save(*args, **kwargs)
+            self.stock_resultante = self.material.stock
+
+        super().save(*args, **kwargs)

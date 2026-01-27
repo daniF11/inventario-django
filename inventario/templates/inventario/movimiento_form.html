@@ -1,0 +1,10 @@
+<h2>Registrar Movimiento</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+<a href="{% url 'inventario:movimiento_list' %}">Volver al listado</a>
+
