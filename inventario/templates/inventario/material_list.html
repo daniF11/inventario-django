@@ -1,6 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Materiales{% endblock %}
+
+{% block content %}
 <h1>Materiales</h1>
 
-<a href="{% url 'inventario:material_create' %}">Nuevo material</a>
+{% if perms.inventario.add_material %}
+  <a href="{% url 'inventario:material_create' %}">Nuevo material</a>
+{% endif %}
 
 <ul>
   {% for material in materiales %}
@@ -8,11 +15,14 @@
       {{ material.nombre }} –
       {{ material.stock }} {{ material.unidad }}
       ({{ material.categoria }})
-      | <a href="{% url 'inventario:material_update' material.pk %}">Editar</a>
-      | <a href="{% url 'inventario:material_toggle' material.pk %}">
-          {% if material.activo %}Desactivar{% else %}Activar{% endif %}
-        </a>
+
+      {% if perms.inventario.change_material %}
+        | <a href="{% url 'inventario:material_update' material.pk %}">Editar</a>
+        | <a href="{% url 'inventario:material_toggle' material.pk %}">
+            {% if material.activo %}Desactivar{% else %}Activar{% endif %}
+          </a>
+      {% endif %}
     </li>
   {% endfor %}
 </ul>
-
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import MovimientoCreateView, MovimientoListView
+from .views import MovimientoCreateView, MovimientoListView, DashboardView
 
 app_name = 'inventario'
 
@@ -11,5 +11,7 @@ urlpatterns = [
     path('materiales/toggle/<int:pk>/', views.material_toggle, name='material_toggle'),
     path('movimientos/', MovimientoListView.as_view(), name='movimiento_list'),
     path('movimientos/nuevo/', MovimientoCreateView.as_view(), name='movimiento_create'),
+    path('', DashboardView.as_view(), name='dashboard'),
+    path('', views.dashboard, name='dashboard'),
     
 ]

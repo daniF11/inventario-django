@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}Movimientos{% endblock %}
+
+{% block content %}
 <h2>Movimientos de Inventario</h2>
 
 <table border="1">
@@ -25,5 +30,9 @@
     </tbody>
 </table>
 
-
-<a href="{% url 'inventario:movimiento_create' %}">Nuevo movimiento</a>
+{% if perms.inventario.add_movimiento %}
+    <a href="{% url 'inventario:movimiento_create' %}">
+        Nuevo movimiento
+    </a>
+{% endif %}
+{% endblock %}

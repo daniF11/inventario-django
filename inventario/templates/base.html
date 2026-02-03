@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Inventario{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <h2>Inventario IDF</h2>
+    <p>Usuario: {{ request.user.username }}</p>
+    <a href="{% url 'usuarios:logout' %}">Salir</a>
+    <hr>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'inventario:dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'inventario:material_list' %}">Materiales</a></li>
+        <li><a href="{% url 'inventario:movimiento_list' %}">Movimientos</a></li>
+        
+        {% if perms.inventario.add_movimiento %}
+            <li><a href="{% url 'inventario:movimiento_create' %}">Nuevo movimiento</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<hr>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
+
+<style>
+.card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    min-width: 150px;
+}
+</style>
+
