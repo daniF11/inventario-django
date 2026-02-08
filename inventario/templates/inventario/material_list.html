@@ -12,9 +12,12 @@
 <ul>
   {% for material in materiales %}
     <li>
-      {{ material.nombre }} –
-      {{ material.stock }} {{ material.unidad }}
+      {{ material.nombre }} – {{ material.stock }} {{ material.unidad }}
       ({{ material.categoria }})
+
+      {% if material.stock_bajo %}
+        <strong style="color: red;">¡Stock bajo!</strong>
+      {% endif %}
 
       {% if perms.inventario.change_material %}
         | <a href="{% url 'inventario:material_update' material.pk %}">Editar</a>
@@ -25,4 +28,5 @@
     </li>
   {% endfor %}
 </ul>
+
 {% endblock %}

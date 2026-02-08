@@ -14,16 +14,26 @@
 </header>
 
 <nav>
-    <ul>
-        <li><a href="{% url 'inventario:dashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'inventario:material_list' %}">Materiales</a></li>
-        <li><a href="{% url 'inventario:movimiento_list' %}">Movimientos</a></li>
-        
-        {% if perms.inventario.add_movimiento %}
-            <li><a href="{% url 'inventario:movimiento_create' %}">Nuevo movimiento</a></li>
-        {% endif %}
-    </ul>
+  <ul>
+    {% if perms.inventario.view_material %}
+      <li><a href="{% url 'inventario:material_list' %}">Materiales</a></li>
+    {% endif %}
+
+    {% if perms.inventario.view_movimiento %}
+      <li><a href="{% url 'inventario:movimiento_list' %}">Movimientos</a></li>
+    {% endif %}
+
+    {% if perms.inventario.add_movimiento %}
+      <li><a href="{% url 'inventario:movimiento_create' %}">Nuevo movimiento</a></li>
+    {% endif %}
+
+    {% if not perms.inventario.add_material %}
+      <p><em>No tienes permisos para crear materiales.</em></p>
+    {% endif %}
+
+  </ul>
 </nav>
+
 
 <hr>
 

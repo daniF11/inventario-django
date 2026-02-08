@@ -27,9 +27,14 @@ class Material(models.Model):
     unidad = models.CharField(max_length=50)
     stock = models.PositiveIntegerField(default=0)
     activo = models.BooleanField(default=True)
+    stock_minimo = models.PositiveIntegerField(default=5)
 
     def __str__(self):
         return f"{self.nombre} ({self.stock} {self.unidad})"
+    
+    @property
+    def stock_bajo(self):
+        return self.stock <= self.stock_minimo
 
     
     

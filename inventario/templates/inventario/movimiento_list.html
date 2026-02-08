@@ -31,8 +31,9 @@
 </table>
 
 {% if perms.inventario.add_movimiento %}
-    <a href="{% url 'inventario:movimiento_create' %}">
-        Nuevo movimiento
-    </a>
+  <a href="{% url 'inventario:movimiento_create' %}">
+      Nuevo movimiento
+  </a>
 {% endif %}
+
 {% endblock %}

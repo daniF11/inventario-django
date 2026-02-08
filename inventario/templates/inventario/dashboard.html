@@ -34,4 +34,18 @@
         <li>No hay movimientos aún</li>
     {% endfor %}
 </ul>
+
+
+
+<h3>⚠ Materiales con stock bajo</h3>
+
+<ul>
+  {% for material in materiales_bajo_stock %}
+    <li>{{ material.nombre }} ({{ material.stock }})</li>
+  {% empty %}
+    <li>Todo en orden 👍</li>
+  {% endfor %}
+</ul>
+
+
 {% endblock %}
