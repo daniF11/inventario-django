@@ -1,8 +1,9 @@
+from urllib import request
 from django.shortcuts import render, redirect
-from .models import Material, Categoria
+
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView
-from .models import Material, Movimiento
+from .models import Material, Movimiento, Categoria
 from .forms import MovimientoForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, permission_required
@@ -14,6 +15,8 @@ from django.db.models import F
 # Create your views here.
 @login_required
 def dashboard(request):
+    
+
     context = {
         'total_materiales': Material.objects.count(),
         'materiales_activos': Material.objects.filter(activo=True).count(),
@@ -22,8 +25,10 @@ def dashboard(request):
                                 .order_by('-fecha')[:5],
         'materiales_bajo_stock': Material.objects.filter(
             activo=True,
-            stock__lte=F('stock_minimo'))         
+            stock__lte=F('stock_minimo'))    
     }
+    
+    
     return render(request, 'inventario/dashboard.html', context)
 
 
@@ -88,17 +93,20 @@ def material_toggle(request, pk):
 
 
 
-class MovimientoCreateView(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    CreateView
-):
+class MovimientoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Movimiento
     form_class = MovimientoForm
     template_name = 'inventario/movimiento_form.html'
-    permission_required = 'inventario.add_movimiento'
     success_url = reverse_lazy('inventario:movimiento_list')
-    #login_url = 'usuarios:login'
+    permission_required = 'inventario.add_movimiento'
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+
+
+
     
     
 class MovimientoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

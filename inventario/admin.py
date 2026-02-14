@@ -24,6 +24,18 @@ class MaterialAdmin(admin.ModelAdmin):
     
 @admin.register(Movimiento)
 class MovimientoAdmin(admin.ModelAdmin):
-    list_display = ('material', 'tipo', 'cantidad', 'fecha')
-    list_filter = ('tipo', 'fecha')
-    search_fields = ('material__nombre',)
+    list_display = (
+        'fecha',
+        'material',
+        'tipo',
+        'cantidad',
+        'stock_resultante',
+        'usuario',
+    )
+
+    exclude = ('usuario', 'stock_resultante', 'fecha')
+
+    def save_model(self, request, obj, form, change):
+        if not obj.usuario:
+            obj.usuario = request.user
+        super().save_model(request, obj, form, change)

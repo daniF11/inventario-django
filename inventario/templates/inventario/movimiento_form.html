@@ -1,10 +1,49 @@
-<h2>Registrar Movimiento</h2>
+{% extends "base.html" %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
+{% block title %}Registrar Movimiento{% endblock %}
 
-<a href="{% url 'inventario:movimiento_list' %}">Volver al listado</a>
+{% block content %}
 
+<h1 class="mb-4">Registrar Movimiento</h1>
+
+<div class="card shadow-sm col-md-6">
+  <div class="card-body">
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label">Material</label>
+        {{ form.material }}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tipo de movimiento</label>
+        {{ form.tipo }}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Cantidad</label>
+        {{ form.cantidad }}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Motivo</label>
+        {{ form.motivo }}
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <a href="{% url 'inventario:movimiento_list' %}" class="btn btn-secondary">
+          Cancelar
+        </a>
+        <button type="submit" class="btn btn-primary">
+          Guardar
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

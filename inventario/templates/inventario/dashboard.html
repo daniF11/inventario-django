@@ -1,51 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Dashboard</h1>
 
-<div style="display: flex; gap: 20px; margin-bottom: 30px;">
-    <div class="card">
-        <h3>Total materiales</h3>
-        <p>{{ total_materiales }}</p>
-    </div>
+<h1 class="mb-4">Panel de Control</h1>
 
-    <div class="card">
-        <h3>Materiales activos</h3>
-        <p>{{ materiales_activos }}</p>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Total Materiales</h6>
+        <h3>{{ total_materiales }}</h3>
+      </div>
     </div>
+  </div>
 
-    <div class="card">
-        <h3>Total movimientos</h3>
-        <p>{{ total_movimientos }}</p>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Materiales Activos</h6>
+        <h3>{{ materiales_activos }}</h3>
+      </div>
     </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Movimientos</h6>
+        <h3>{{ total_movimientos }}</h3>
+      </div>
+    </div>
+  </div>
 </div>
 
-<h2>Últimos movimientos</h2>
+<div class="mt-5">
+  <h5>Alertas de Stock</h5>
 
-<ul>
-    {% for m in ultimos_movimientos %}
-        <li>
-            {{ m.fecha|date:"Y-m-d H:i" }} —
-            {{ m.material.nombre }} —
-            <strong>{{ m.get_tipo_display }}</strong> —
-            {{ m.cantidad }}
-        </li>
-    {% empty %}
-        <li>No hay movimientos aún</li>
-    {% endfor %}
-</ul>
-
-
-
-<h3>⚠ Materiales con stock bajo</h3>
-
-<ul>
-  {% for material in materiales_bajo_stock %}
-    <li>{{ material.nombre }} ({{ material.stock }})</li>
-  {% empty %}
-    <li>Todo en orden 👍</li>
-  {% endfor %}
-</ul>
+  {% if materiales_bajo_stock %}
+    <div class="alert alert-danger">
+      Hay materiales con stock bajo:
+      <ul class="mb-0">
+        {% for material in materiales_bajo_stock %}
+          <li>{{ material.nombre }} ({{ material.stock }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <div class="alert alert-success">
+      Todo en orden 👍
+    </div>
+  {% endif %}
+</div>
 
 
 {% endblock %}

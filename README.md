@@ -1,23 +1,44 @@
 # 📦 Sistema de Inventario – Django
 
-Sistema de inventario básico desarrollado en Django para una empresa
-de cableado estructurado y eléctrico.
+Sistema de gestión de inventario desarrollado en Django para una empresa de cableado estructurado y eléctrico.
+Incluye control de materiales, movimientos de stock, roles de usuario y panel de métricas.
 
-## Funcionalidades actuales
+## 🚀 Funcionalidades actuales
 
-- CRUD de categorías
-- CRUD de materiales
-- Activación y desactivación lógica de materiales
+- Autenticación de permisos
+- Gestión de materiales
+- Movimientos de inventario
+- Django Templates
+- Panel de control (Dashboard)
+- Interfaz (UI)
 - Gestión desde Django Admin
-- Interfaz web con Django Templates
 
 ## Tecnologías
 
-- Python
-- Django
-- SQLite (desarrollo)
+- Python 3
+- Django 5
+- SQLite (entorno de desarrollo)
+- Bootstrap 5
 
-## Estado del proyecto
+## 📌 Estado del proyecto
 
-✔️ En desarrollo  
-✔️ Base funcional de inventario
+🟢 Versión inicial estable – v0.0.1
+
+Base sólida funcional con:
+
+✔️ Control de stock operativo  
+✔️ Permisos por rol implementados
+✔️ Interfaz profesional
+✔️ Lógica de inventario consistente
+
+## 🔮 Mejoras futuras
+
+- Transacciones atómicas en movimientos
+- Filtros y búsqueda avanzada
+- Exportación a Excel
+- Paginación en listados
+- Mejoras visuales adicionales
+
+
+
+Desarrollado como primer sistema completo en Django con enfoque en arquitectura, control de permisos y lógica real de negocio.
