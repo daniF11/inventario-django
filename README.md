@@ -13,7 +13,7 @@ Incluye control de materiales, movimientos de stock, roles de usuario y panel de
 - Interfaz (UI)
 - Gestión desde Django Admin
 
-## Tecnologías
+## 🛠️​ Tecnologías
 
 - Python 3
 - Django 5
