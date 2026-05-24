@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- Avatar -->
+                <div class="col-md-4 text-center">
+
+                    {% if empleado.avatar %}
+                        <img src="{{ empleado.avatar.url }}"
+                             class="img-fluid rounded-circle shadow"
+                             style="width: 220px; height: 220px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto shadow"
+                             style="width: 220px; height: 220px;">
+                            <h1>
+                                {{ empleado.nombre|first }}
+                            </h1>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                <!-- Información -->
+                <div class="col-md-8">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+                            <h2>{{ empleado.nombre }}</h2>
+
+                            <h5 class="text-muted">
+                                {{ empleado.cargo }}
+                            </h5>
+                        </div>
+
+                        <div>
+                            {% if empleado.activo %}
+                                <span class="badge bg-success fs-6">
+                                    Activo
+                                </span>
+                            {% else %}
+                                <span class="badge bg-danger fs-6">
+                                    Inactivo
+                                </span>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <strong>Documento:</strong><br>
+                            {{ empleado.documento }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <strong>RH:</strong><br>
+                            {{ empleado.rh }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <strong>Teléfono:</strong><br>
+                            {{ empleado.telefono }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <strong>Email:</strong><br>
+                            {{ empleado.email }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <strong>Fecha nacimiento:</strong><br>
+                            {{ empleado.fecha_nacimiento }}
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <h5>Habilidades</h5>
+
+                    {% for skill in empleado.skills.all %}
+
+                        <span class="badge bg-primary">
+                            {{ skill.nombre }}
+                        </span>
+
+                    {% empty %}
+
+                        <p>No tiene habilidades registradas.</p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
